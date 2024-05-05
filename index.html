@@ -196,7 +196,7 @@
         });
         // Save the PDF when download link is clicked
         var downloadLink = document.getElementById('downloadReport');
-        downloadLink.href = doc.output('bloburl');
+        downloadLink.href = doc.output('https://yugalna.github.io/bmi-index-calcutor');
         downloadLink.download = "BMI_Report.pdf"; // Specify filename for the downloaded PDF
         doc.save(downloadLink.download); // Trigger the download
     }
