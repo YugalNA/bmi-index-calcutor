@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI Calculator</title>
-<!-- Include jsPDF library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -67,8 +65,8 @@
     }
 
     .graph {
-        width: 200%;
-        height: 100px; /* Adjust height as needed */
+        width: 100%;
+        height: 200px; /* Adjust height as needed */
     }
 
     .exercise-diet-plan {
@@ -98,7 +96,7 @@
 
     @media screen and (max-width: 600px) {
         .box {
-            max-width: 100%; /* Adjust max-width for smaller devices */
+            max-width: 90%; /* Adjust max-width for smaller devices */
         }
     }
 </style>
@@ -123,9 +121,10 @@
         <h2>Exercise & Diet Plan</h2>
         <div id="exerciseDietPlan"></div>
     </div>
-    <button onclick="printReport()" style="margin-bottom: 20px;">Print Report</button> <!-- Print Report Button -->
+    <button onclick="printReport()" style="margin-top: 20px;">Print Report</button>
 </div>
 <footer class="footer">© 2023 Shivaji College (University Of Delhi) at bottom . All rights reserved.<br>Created By Yugal 22/63044<br>BSc. Phy. Sci. With Computer Science</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script>
     function calculateBMI() {
         var weight = document.getElementById('weight').value;
@@ -190,25 +189,13 @@
         chart.render();
     }
 
-<!-- Add Print Report button -->
-<button onclick="printReport()">Print Report</button>
-
-<script>
-    // Function to print the report
     function printReport() {
-        // Initialize jsPDF
         var doc = new jsPDF();
-
-        // Get HTML content of the entire page
-        var htmlContent = document.documentElement.innerHTML;
-
-        // Add HTML content to PDF
-        doc.html(htmlContent, {
-            callback: function (doc) {
-                // Save PDF
-                doc.save("BMI_Report.pdf");
-            }
+        var htmlContent = document.querySelector('.container').innerHTML;
+        doc.fromHTML(htmlContent, 15, 15, {
+            'width': 170
         });
+        doc.save('BMI_Report.pdf');
     }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
