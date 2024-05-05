@@ -5,34 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI Calculator</title>
 <style>
-    /* CSS for BMI Calculator */
     body {
         font-family: Arial, sans-serif;
         background-color: #f3f3f3;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
     }
 
-    .calculator {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .box {
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        text-align: center;
+        margin: 10px;
+        flex: 1;
         max-width: 400px;
-        width: 90%;
     }
 
-    h1 {
-        color: #333;
+    h1, h2 {
+        text-align: center;
     }
 
     input[type="number"] {
-        width: 100%;
+        width: calc(100% - 20px);
         padding: 10px;
         margin: 10px 0;
         border: 1px solid #ccc;
@@ -61,32 +64,64 @@
         font-weight: bold;
     }
 
-    /* CSS for BMI Chart */
-    #chartContainer {
+    .graph {
         width: 100%;
-        height: 300px;
-        margin-top: 20px;
+        height: 200px; /* Adjust height as needed */
+    }
+
+    .exercise-diet-plan {
+        text-align: center;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+    }
+
+    .header {
+        background-color: #4CAF50;
+        padding: 20px;
+    }
+
+    .header-text {
+        color: white;
+        text-align: center;
     }
 </style>
 </head>
 <body>
-<div class="calculator">
-    <h1>BMI Calculator</h1>
-    <input type="number" id="weight" placeholder="Enter your weight (kg)">
-    <input type="number" id="height" placeholder="Enter your height (cm)">
-    <button onclick="calculateBMI()">Calculate BMI</button>
-    <div class="result" id="result"></div>
-    <div id="chartContainer"></div>
+<header class="header">
+    <h1 class="header-text">Yugal BMI Calculator</h1>
+</header>
+<div class="container">
+    <div class="calculator box">
+        <h2>BMI Calculator</h2>
+        <input type="number" id="weight" placeholder="Enter your weight (kg)">
+        <input type="number" id="height" placeholder="Enter your height (cm)">
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <div class="result" id="result"></div>
+    </div>
+    <div class="graph-container box">
+        <h2>BMI Category Graph</h2>
+        <div id="chartContainer" class="graph"></div>
+    </div>
+    <div class="exercise-diet-plan box">
+        <h2>Exercise & Diet Plan</h2>
+        <div id="exerciseDietPlan"></div>
+    </div>
 </div>
-
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<footer class="footer">© 2023 Shivaji College (University Of Delhi). All rights reserved.<br>Created By Yugal 22/63044<br>BSc. Phy. Sci. With Computer Science</footer>
 <script>
-    // JavaScript for BMI Calculator
     function calculateBMI() {
         var weight = document.getElementById('weight').value;
         var height = document.getElementById('height').value;
         var bmi = weight / ((height / 100) * (height / 100));
         var resultElement = document.getElementById('result');
+        var exerciseDietPlanElement = document.getElementById('exerciseDietPlan');
         var category;
 
         if (bmi < 18.5) {
@@ -107,23 +142,23 @@
         switch (category) {
             case 'Underweight':
                 exercisePlan = 'Cardiovascular exercises and strength training';
-                dietPlan = 'Increase calorie intake with balanced nutrition';
+                dietPlan = 'Increase calorie intake with balanced nutrition, focus on protein-rich foods.';
                 break;
             case 'Normal weight':
                 exercisePlan = 'Regular exercise routine for maintenance';
-                dietPlan = 'Maintain a balanced diet';
+                dietPlan = 'Maintain a balanced diet with a variety of nutrients.';
                 break;
             case 'Overweight':
                 exercisePlan = 'Cardio exercises and calorie deficit';
-                dietPlan = 'Reduce calorie intake, focus on whole foods';
+                dietPlan = 'Reduce calorie intake, focus on whole foods, avoid processed foods.';
                 break;
             case 'Obese':
                 exercisePlan = 'High-intensity interval training (HIIT) and strength training';
-                dietPlan = 'Strict calorie control, focus on nutrient-dense foods';
+                dietPlan = 'Strict calorie control, focus on nutrient-dense foods, avoid sugary drinks.';
                 break;
         }
 
-        resultElement.innerHTML += `<br><br>Exercise Plan: ${exercisePlan}<br>Diet Plan: ${dietPlan}`;
+        exerciseDietPlanElement.innerHTML = `<strong>Exercise Plan:</strong> ${exercisePlan}<br><strong>Diet Plan:</strong> ${dietPlan}`;
 
         // Draw BMI chart
         var chart = new CanvasJS.Chart("chartContainer", {
@@ -144,5 +179,6 @@
         chart.render();
     }
 </script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
