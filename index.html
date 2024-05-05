@@ -85,7 +85,7 @@
 
     .header {
         background-color: #4CAF50;
-        padding: 20px;
+        padding: 10px;
         width: 100%;
     }
 
@@ -121,7 +121,7 @@
         <h2>Exercise & Diet Plan</h2>
         <div id="exerciseDietPlan"></div>
     </div>
-    <a id="downloadReport" href="#" download="BMI_Report.pdf" style="margin-top: 20px;">Download Report</a>
+    <a id="downloadReport" href="#" style="margin-top: 20px;">Download Report</a>
 </div>
 <footer class="footer">© 2023 Shivaji College (University Of Delhi) at bottom . All rights reserved.<br>Created By Yugal 22/63044<br>BSc. Phy. Sci. With Computer Science</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -188,14 +188,16 @@
         });
         chart.render();
 
-        // Update download link href with the updated report content
-        var downloadLink = document.getElementById('downloadReport');
+        // Generate PDF report
         var doc = new jsPDF();
         var htmlContent = document.querySelector('.container').innerHTML;
         doc.fromHTML(htmlContent, 15, 15, {
             'width': 170
         });
+        // Save the PDF when download link is clicked
+        var downloadLink = document.getElementById('downloadReport');
         downloadLink.href = doc.output('bloburl');
+        downloadLink.download = "BMI_Report.pdf"; // Specify filename for the downloaded PDF
     }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
