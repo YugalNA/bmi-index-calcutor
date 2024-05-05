@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI Calculator</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script> <!-- Include jsPDF library -->
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -66,7 +67,7 @@
     }
 
     .graph {
-        width: 300%;
+        width: 200%;
         height: 100px; /* Adjust height as needed */
     }
 
@@ -189,10 +190,25 @@
         chart.render();
     }
 
+<!-- Add Print Report button -->
+<button onclick="printReport()">Print Report</button>
+
+<script>
+    // Function to print the report
     function printReport() {
+        // Initialize jsPDF
         var doc = new jsPDF();
-        doc.fromHTML(document.body, 15, 15); // Print the entire page
-        doc.save("BMI_Report.pdf");
+
+        // Get HTML content of the entire page
+        var htmlContent = document.documentElement.innerHTML;
+
+        // Add HTML content to PDF
+        doc.html(htmlContent, {
+            callback: function (doc) {
+                // Save PDF
+                doc.save("BMI_Report.pdf");
+            }
+        });
     }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
