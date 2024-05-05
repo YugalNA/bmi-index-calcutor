@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI Calculator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script> <!-- Include jsPDF library -->
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -17,6 +18,8 @@
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        max-width: 600px; /* Adjust max-width for larger devices */
+        margin: 0 auto; /* Center the container */
     }
 
     .box {
@@ -25,7 +28,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
         margin: 10px;
-        max-width: 90%;
+        width: 100%;
     }
 
     h1, h2 {
@@ -63,7 +66,7 @@
     }
 
     .graph {
-        width: 550%;
+        width: 600%;
         height: 300px; /* Adjust height as needed */
     }
 
@@ -93,8 +96,8 @@
     }
 
     @media screen and (max-width: 600px) {
-        .graph {
-            width: 100%; /* Adjust width for mobile */
+        .box {
+            max-width: 100%; /* Adjust max-width for smaller devices */
         }
     }
 </style>
@@ -119,6 +122,7 @@
         <h2>Exercise & Diet Plan</h2>
         <div id="exerciseDietPlan"></div>
     </div>
+    <button onclick="printReport()" style="margin-bottom: 20px;">Print Report</button> <!-- Print Report Button -->
 </div>
 <footer class="footer">© 2023 Shivaji College (University Of Delhi) at bottom . All rights reserved.<br>Created By Yugal 22/63044<br>BSc. Phy. Sci. With Computer Science</footer>
 <script>
@@ -183,6 +187,12 @@
             }]
         });
         chart.render();
+    }
+
+    function printReport() {
+        var doc = new jsPDF();
+        doc.fromHTML(document.body, 15, 15); // Print the entire page
+        doc.save("BMI_Report.pdf");
     }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
